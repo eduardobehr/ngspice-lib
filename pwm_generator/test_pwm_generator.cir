@@ -1,0 +1,19 @@
+.title PWM with arbitrary non-linear source
+
+.include pwm_generator.lib
+
+* Generate input signals
+Vfreq     freq        gnd       2000
+Vsine     signal      gnd       SIN(0 1 60)
+
+* Feed signals to pwm generator
+xpwm      signal      freq      pwm          PWM3
+
+* Filter output
+
+.tran 1u 20m
+
+.control
+  run
+  plot v(signal) v(pwm) 
+.endc
