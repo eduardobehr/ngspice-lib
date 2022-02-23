@@ -1,0 +1,12 @@
+** Product: multiplies the input signals and outputs it
+*
+*                    ________
+*                   |        |
+*  input1 >-------->|        |
+*                   |   ╳    |-------> output
+*  input2 >-------->|        |
+*                   |________|
+
+.subckt PROD input1 input2 output
+    Bout    output      gnd     v={v(input1)*v(input2)}
+.ends PROD

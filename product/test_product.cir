@@ -1,0 +1,20 @@
+.title Test sum
+.include product.lib
+
+** Input signals
+V1      sig1    gnd     -1
+V2      sig2    gnd     2
+V3      sig3    gnd     3
+
+** Output signals
+* multiplies signals 1 with 2
+X_12   sig1   sig2   sig12      PROD
+* multiplies signals 2 with 3
+X_23   sig2   sig3   sig23      PROD
+
+.tran
+
+.control
+    run
+    plot sig12 sig23
+.endc
