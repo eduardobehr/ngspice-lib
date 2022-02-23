@@ -1,0 +1,20 @@
+.title Test sum
+.include sum.lib
+
+** Input signals
+V1      sig1    gnd     1
+V2      sig2    gnd     2
+V3      sig3    gnd     3
+
+** Output signals
+* sum signals 1 with 2
+X_12    sig1    sig2            sig12       SUM2
+* sum signals 1 with 2, and subtract 3 with -1 gain
+X_123   sig1    sig2    sig3    sig123      SUM3 g3=-1
+
+.tran
+
+.control
+    run
+    plot sig12 sig123
+.endc

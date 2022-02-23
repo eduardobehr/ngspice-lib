@@ -1,0 +1,24 @@
+** Sums: sums the input signals (with a gain) and outputs it
+*
+*                    ________
+*  input1 >-------->|⛌ g1    |
+*  input2 >-------->|⛌ g2    |
+*  input3 >-------->|⛌ g3    |-------> output
+*    :              |   :    |
+*    :              |   :    |
+
+.subckt SUM2 input1 input2 output   g1=1 g2=1
+    Bout    output      gnd     v={g1*v(input1)+g2*v(input2)}
+.ends SUM2
+
+.subckt SUM3 input1 input2 input3 output    g1=1 g2=1 g3=1
+    Bout    output      gnd     v={g1*v(input1)+g2*v(input2)+g3*v(input3)}
+.ends SUM3
+
+.subckt SUM4 input1 input2 input3 input4 output   g1=1 g2=1 g3=1 g4=1
+    Bout    output      gnd     v={g1*v(input1)+g2*v(input2)+g3*v(input3)+g4*v(input4)}
+.ends SUM4
+
+.subckt SUM5 input1 input2 input3 input4 input5 output   g1=1 g2=1 g3=1 g4=1 g5=1
+    Bout    output      gnd     v={g1*v(input1)+g2*v(input2)+g3*v(input3)+g4*v(input4)+g5*v(input5)}
+.ends SUM5
