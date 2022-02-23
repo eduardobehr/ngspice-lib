@@ -1,0 +1,20 @@
+.title Integrator 
+** This component has two nodes (input and output) and attatches
+* itself to global gnd (0)
+* NOTE: this component requires "uic" enabled on transient analysis
+*                 _______
+*                |       |
+*   input >------|  1/s  |-----> output
+*                |_______|
+*
+*
+*                  ||=======> voltage signal to be integrated
+*                  ||    ||=> resulting time-integrated signal
+.subckt INTEGRATOR input output
+** Place input voltage on Lint and output its current
+    Lint       input   gnd     1
+    Bint    output  gnd     V=i(Lint)
+    * .ic i(Lint) = 0
+.ends
+
+

@@ -1,0 +1,14 @@
+.title Integrator Test
+.include integrator.lib
+
+* Testing subcircuit INTEGRATOR
+Bin     input   gnd     v=time
+Xint    input   out     INTEGRATOR
+
+
+.tran 10u 50m uic
+
+.control
+        run
+        plot v(out)
+.endc
