@@ -1,0 +1,17 @@
+** Fixed limit clamper saturator
+*   This component hard-clamps the input to the given lmin & lmax values 
+*
+*                    ________ <- lmax
+*                   |     __ |
+*   input >-------->|    /   |------> output
+*                   | __/    |
+*           lmin -> |________|
+*                    
+
+
+
+.subckt ClamperFixed input output lmin=-1 lmax=1
+    Bout    output      gnd     v = v(input,gnd) > lmax ? lmax : 
+                                   +v(input,gnd) < lmin ? lmin : 
+                                   +v(input,gnd)
+.ends ClamperFixed

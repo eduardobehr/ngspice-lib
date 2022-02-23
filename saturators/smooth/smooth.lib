@@ -1,0 +1,19 @@
+** Fixed limit smooth saturator
+*   This component smoothly saturates the input to the given lmin & lmax values 
+*   The output centers itself around the mean between lmin & lmax, and
+*   the output smoothes near the limits according to the intensity parameter.
+*
+*                    _________ <- lmax
+*                   |intensity|
+*                   |    ___  |
+*   input >-------->|   (/    |------> output
+*                   | __/)    |
+*           lmin -> |_________| 
+*                    
+
+.subckt Smooth input output         intensity=0.1 lmin=-1 lmax=1
+    .param  mid     =   (lmin+lmax)/2
+    .param  amplit  =   (lmax - lmin)/2
+
+    Bout    output      gnd     v = amplit*atan(intensity*v(input))/1.57 + mid
+.ends Smooth

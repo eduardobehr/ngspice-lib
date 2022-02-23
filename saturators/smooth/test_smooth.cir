@@ -1,0 +1,14 @@
+.title Smooth Test
+.include smooth.lib
+
+
+BtestIn     vin     gnd     v=311*sin(6.28*60*time)
+Xsat        vin     vout    Smooth      lmin=-200 lmax=200 intensity=0.05
+
+
+.tran 10u 30m
+
+.control
+    run
+    plot vout vin
+.endc

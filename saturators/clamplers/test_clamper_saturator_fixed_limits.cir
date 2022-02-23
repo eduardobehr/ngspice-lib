@@ -1,0 +1,14 @@
+.title Clampler Test
+.include clamper_fixed.lib
+
+
+BtestIn     vin     gnd     v=311*sin(6.28*60*time)
+Xsat        vin     vout    ClamperFixed lmax=250 lmin=-250
+
+
+.tran 10u 30m
+
+.control
+    run
+    plot vout
+.endc
