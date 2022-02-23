@@ -1,0 +1,32 @@
+.title PWM with arbitrary non-linear source
+
+.include pwm_generator.lib
+
+* Generate input signals
+Bfreq     freq        gnd       v=4000*log10(time/20m+0.001)
+Vsine     signal      gnd       SIN(0 1 60)
+
+* Feed signals to pwm generator
+xpwm      signal      freq      pwm          PWM3
+
+* Filter output
+.param order = 2
+
+
+
+.if (order == 1) $ RC
+  Rf        pwm         filtered    1000
+  Cf        filtered    gnd         1u
+.elseif (order == 2) $ RCRC
+  Rf1       pwm           stage2    100
+  Cf1       stage2        gnd       1u
+  Rf2       stage2        filtered  100
+  Cf2       filtered      gnd       1u
+.endif
+
+.tran 1u 20m
+
+.control
+  run
+  plot v(signal) v(pwm) v(filtered)
+.endc
