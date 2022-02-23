@@ -1,0 +1,10 @@
+** Gain: the output of this component is the product of the gain parameter and
+*   the input
+*                 ______
+*                |      \
+*   input >----->|╳ gain >-----> output = {gain ╳ input}
+*                |______/
+
+.subckt GAIN input output       gain=1
+Bout        output      gnd     v=gain*v(input)
+.ends GAIN

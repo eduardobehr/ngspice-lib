@@ -1,0 +1,13 @@
+.title Test Gain
+
+.include gain.lib
+
+Bin     input       gnd     v=1.5+2.5*sin(6.28*60*time)
+Xgain   input       output  GAIN gain=2
+
+.tran 100u 30m iuc
+
+.control
+    run
+    plot input output
+.endc
