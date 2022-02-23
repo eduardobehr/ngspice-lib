@@ -1,0 +1,8 @@
+** This file may be .INCLUDEd or .LIB'd into other circuits
+.include gain/gain.lib
+.include integrator/integrator.lib
+.include product/product.lib
+.include pwm_generator/pwm_generator.lib
+.include saturators/clampers/clamper.lib
+.include saturators/smooth/smooth.lib
+.include sum/sum.lib

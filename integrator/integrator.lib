@@ -13,7 +13,7 @@
 .subckt INTEGRATOR input output
 ** Place input voltage on Lint and output its current
     Lint       input   gnd     1
-    Bint    output  gnd     V=i(Lint)
+    Bint       output  gnd     V=i(Lint)
     * .ic i(Lint) = 0
 .ends
 
