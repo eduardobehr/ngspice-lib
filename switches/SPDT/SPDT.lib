@@ -1,5 +1,6 @@
-**
-*
+** SPDT Switch
+*   When the command signal is low  (cmd < thres), the switch conducts between terminals 1 and 2.
+*   When the command signal is high (cmd >=thres), the switch conducts between terminals 1 and 3.
 *                        __________
 *                       |          |
 *                       |     /o---|------<> terminal 2
@@ -13,10 +14,8 @@
 *                           ||
 *                         command
 
-.subckt SPDT 1 2 3 cmd
-    .param thres = 0.5
-    .param Ron  = 1m
-    .param Roff = 100Meg
-    B12     1       2       i = v(cmd) >= thres ? v(1,2)/Roff : v(1,2)/Ron
-    B13     1       3       i = v(cmd) >= thres ? v(1,3)/Ron  : v(1,3)/Roff
+.subckt SPDT 1 2 3 cmd          thres = 0.5  Ron  = 1m  Roff = 100Meg
+    B12     1       2       i = 'v(cmd) >= thres ? v(1,2)/Roff : v(1,2)/Ron'
+    B13     1       3       i = 'v(cmd) >= thres ? v(1,3)/Ron  : v(1,3)/Roff'
+    R23     2       3       {Roff} ; This large resistance might help with numerical stability
 .ends SPDT
