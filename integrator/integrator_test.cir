@@ -5,7 +5,6 @@
 Bin     input   gnd     v=time
 Xint    input   out     INTEGRATOR
 
-
 .tran 10u 50m uic
 
 .control
