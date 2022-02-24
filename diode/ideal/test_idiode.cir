@@ -1,0 +1,17 @@
+.title Test IDIODE
+
+.include idiode.lib
+
+
+Bv      1       gnd         v=311*sin(60*6.28*time)
+R1      1       Vdiode         1
+Xd      Vdiode     gnd         IDIODE1     Vf=0.7
+
+
+.tran 1m 30m uic
+
+.control
+    run
+    plot Bv#branch v(1) 
+    plot v(Vdiode)
+.endc

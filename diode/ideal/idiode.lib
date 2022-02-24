@@ -1,0 +1,20 @@
+** Ideal Diodes
+*
+*               |\  |
+*               | \ |
+*               |  \|
+*   1 ----------|   |---------2
+*               |  /|
+*               | / |
+*               |/  |
+*
+
+
+** Ideal Diode 1
+* If v(1,2) >= Vf, let current through. Else, block the current
+* Forward voltage knee (Vf) and Series resistance (Rs) are adjustable
+.subckt IDIODE1 1 2     Vf=0   Rs=100u
+    Bdiode      1       2       i = 'v(1,2) >= Vf ? (v(1,2)-Vf)/Rs : 0'
+.ends IDIODE1
+
+
