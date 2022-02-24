@@ -1,0 +1,22 @@
+**
+*
+*                        __________
+*                       |          |
+*                       |     /o---|------<> terminal 2
+*                       |    /     |
+*  terminal 1  <>-------|--o/      |
+*                       |          |
+*                       |      o---|------<> terminal 3
+*                       |__________|
+*                           /\
+*                           ||
+*                           ||
+*                         command
+
+.subckt SPDT 1 2 3 cmd
+    .param thres = 0.5
+    .param Ron  = 1m
+    .param Roff = 100Meg
+    B12     1       2       i = v(cmd) >= thres ? v(1,2)/Roff : v(1,2)/Ron
+    B13     1       3       i = v(cmd) >= thres ? v(1,3)/Ron  : v(1,3)/Roff
+.ends SPDT

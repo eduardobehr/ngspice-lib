@@ -1,0 +1,18 @@
+.title Test SPDT
+.include SPDT.lib
+
+
+V1      1       gnd     10
+Vs      cmd     gnd     PULSE(-1 1 2NS 2NS 2NS 5ms 10ms)
+Xsw     1       2       3       cmd     SPDT
+R2      2       gnd     1k
+R3      3       gnd     1k
+
+* TODO: testar com indutor em série no terminal!!
+
+.tran 100us 100ms
+
+.control
+    run
+    plot v1#branch
+.endc
