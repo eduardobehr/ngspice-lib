@@ -1,0 +1,31 @@
+** Ideal Single Phase Rectifier
+*
+* 
+*        -------------------------------*  (+)  outpos
+*        |                 |
+*      __|__             __|__
+*       / \               / \
+*      /___\             /___\
+*        |                 |
+*        * inpos           * inneg
+*        |   (+)           |   (-)
+*        |                 |
+*      __|__             __|__
+*       / \               / \
+*      /___\             /___\
+*        |                 |
+*        |                 |
+*        -------------------------------*  (-)  outneg
+
+* Rectifier Diodes
+.subckt IRECTSINGLE inpos inneg outpos outneg       Vf=0    Rs=1m
+    .include idiode.lib
+    XD1     inpos       outpos      IDIODE1         Vf=Vf   Rs=Rs
+    XD2     outneg      inpos       IDIODE1         Vf=Vf   Rs=Rs
+    XD3     inneg       outpos      IDIODE1         Vf=Vf   Rs=Rs
+    XD4     outneg      inneg       IDIODE1         Vf=Vf   Rs=Rs
+    * D1        inpos       outpos      DIODE        
+    * D2        outneg      inpos       DIODE        
+    * D3        inneg       outpos      DIODE        
+    * D4        outneg      inneg       DIODE        
+.ends IRECTSINGLE

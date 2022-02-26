@@ -1,0 +1,28 @@
+.title Test Ideal Single Phase Rectifier
+
+.include irectifier_single_phase.lib
+
+* Source
+Bg      in          gmid        v=311*sin(6.28*60*time)
+Rg      gmid        gnd         10m
+
+* Rectifier
+Xrect   in          gnd         positive    negative    IRECTSINGLE     Rs=100u 
+
+* Load
+* Cload   positive    Cmid        47uF
+Lload positive res  100m
+* Rcap    Cmid        negative    10m
+Rload   res    negative    2
+
+.tran 1000ns 200ms uic
+
+
+.control
+    run
+    plot bg#branch 
+    plot v(positive, negative) abs(v(in))
+    * let f_in = mag(fft(in))
+    * let f_out = mag(fft(v(positive, negative)))
+    * plot f_in f_out vs fft_scale xlimit 0 300
+.endc
