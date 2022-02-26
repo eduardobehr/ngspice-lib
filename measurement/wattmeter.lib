@@ -1,0 +1,12 @@
+
+**
+*
+*
+*
+*
+
+.subckt WATTMETER AmpIn AmpOut VoltNeg      PowerOut
+    Vamp        AmpIn       AmpOut      0
+    Bamp        current     gnd         v = {i(Vamp)}
+    bPout       PowerOut    gnd         v = v(current)*v(AmpOut,VoltNeg)
+.ends WATTMETER

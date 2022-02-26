@@ -1,0 +1,17 @@
+
+
+.title Test WATTMETER
+.include wattmeter.lib
+
+
+Vg      1       0       SIN(0 311.1269 60)
+xWatt   1       2       gnd     power       WATTMETER
+Rload   2       gnd     22
+
+
+.tran 10u  160.66667m
+
+.control
+    run
+    plot power avg(power)  mean(power)
+.endc
