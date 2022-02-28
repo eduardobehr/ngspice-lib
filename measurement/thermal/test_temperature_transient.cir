@@ -1,0 +1,23 @@
+.title Test Temperature Transient estimator
+
+
+.include temperature_transient.lib
+
+
+.param RTH_test = 62
+.param T_test   =   40
+.param POWER_test = 1.5
+.param Cth_test = .5
+
+Bdc             power           gnd             v=POWER_test
+Xtemptrans      power           temperature     TEMPERATURE_TRANSIENT Rth=RTH_test Tamb=T_test Cth=Cth_test
+BsteadyState    finalTemp       gnd             v={v(power)*RTH_test + T_test}
+
+.nodeset v(finalTemp) = {POWER_test*RTH_test + T_test}
+
+.tran 100m 300 uic
+
+.control
+    run
+    plot temperature finalTemp[0]
+.endc

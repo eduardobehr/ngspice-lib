@@ -1,0 +1,42 @@
+** TEMPERATURE TRANSIENT ESTIMATOR
+* This component estimates the temperature of an element based on its power loss, which is fed into PowerIn
+*  
+*   PowerIn:                input heat
+*   (TempOut-Tamb)/Rth:    output heat
+*   Cth*dT/dt:             stored heat
+*
+* Note 1: this requires an integrator component with capability to set initial state condition
+* Note 2: the initial temperature is assumed to be Tamb
+* Note 3: usually, thermal transients are much longer than electrical ones.
+*
+* The 1st order differential is solved according to the following diagram:
+* 
+*
+*                  ________ 
+*                 |        |
+*                 |Tamb/Rth|
+*                 |________|
+*                      |
+*                   ___↓___        ______         _______
+*                  |       |      |      \       |       |
+*    PowerIn  ---->|   +   |----->| 1/Cth >----->|  1/s  |-----●------> TempOut
+*                  |_______|      |______/       |_______|     |  
+*                      ↑                                       |
+*                      |                 _______               |
+*                      |                /       |              |
+*                      |---------------< -1/Rth |<-------------|
+*                                       \_______|
+*   
+*
+* Usage: one tipical example would be to measure the power output of a semiconductor with a wattmeter, and link
+*  the power signal to the first terminal of this component. Then, given the correct parameters, an approximated
+*  temperature estimation can be achieved, assuming the thermaldynamics behave as an RC electrical circuit.
+
+.include ../../integrator/integrator.lib
+
+
+.subckt TEMPERATURE_TRANSIENT PowerIn TempOut       Tamb = 27    Rth = 50      Cth = .5 ; Estimated thermal params for IDB30E120 smd diode
+    Bpreint     Internal        gnd         v = {(Tamb/Rth + v(PowerIn) - 1/Rth*v(TempOut))/Cth}; value to integrate
+    Xint        Internal        TempOut     INTEGRATOR      ic = Tamb
+.ends TEMPERATURE_TRANSIENT
+
