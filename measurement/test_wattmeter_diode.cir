@@ -20,6 +20,8 @@ Rload       3       0       220
 
 .control
     run
-    plot power avg(power)  mean(power)
+    gnuplot temp power  avg(power)  mean(power)
+        + title 'Drain current versus drain voltage'
+        + xlabel 'Drain voltage / V' ylabel 'Drain current / uA'
 
 .endc
