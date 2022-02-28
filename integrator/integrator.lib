@@ -10,11 +10,12 @@
 *
 *                  ||=======> voltage signal to be integrated
 *                  ||    ||=> resulting time-integrated signal
-.subckt INTEGRATOR input output
+*                  ||    ||         ||=> Initial condition of the output
+.subckt INTEGRATOR input output     ic=0
 ** Place input voltage on Lint and output its current
-    Lint       input   gnd     1
-    Bint       output  gnd     V=i(Lint)
-    * .ic i(Lint) = 0
+    Cint       output       gnd         1
+    Bint       output       gnd         i=-v(input)
+    .ic v(output) = ic
 .ends
 
 
