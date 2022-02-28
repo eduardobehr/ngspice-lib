@@ -1,0 +1,25 @@
+
+
+.title Test WATTMETER on a Real Diode from Infineon
+.include wattmeter.lib
+.include IDX_E120_L2.lib
+* Source https://www.infineon.com/cms/en/product/power/diodes-thyristors/silicon-diodes/idb30e120/
+
+
+.param FREQ_SCALE = 1000
+.param FREQUENCY = 60*FREQ_SCALE
+.param STEP_SCALE = 10u/FREQ_SCALE
+.param SIM_TIME_SCALE = 100m/FREQ_SCALE
+
+Vg          1       0       SIN(0 311.1269 FREQUENCY)
+xWatt       1       2       3     power       WATTMETER
+XDload      2       3       IDP30E120_L2
+Rload       3       0       220
+
+.tran {STEP_SCALE} {SIM_TIME_SCALE}
+
+.control
+    run
+    plot power avg(power)  mean(power)
+
+.endc
