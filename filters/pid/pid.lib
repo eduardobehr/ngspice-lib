@@ -1,0 +1,15 @@
+** PID Controllers
+
+.subckt PI input output         kp=1 ki=1
+    Gint        integral        gnd         input       gnd     {-ki}
+    Cint        integral        gnd         1           ic=0
+    Rint        integral        gnd         100G ; for ac convergence
+
+    Eout        output          integral    input       gnd     {kp}
+
+.ends PI
+
+
+
+
+

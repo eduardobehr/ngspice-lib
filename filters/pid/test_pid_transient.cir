@@ -1,0 +1,17 @@
+.title Test PID Controllers (Transient)
+
+.include pid.lib
+
+* Transient analysis
+Bsine       inp     gnd     v=1;sin(6.28*50*time)+0.1
+xPItrans    inp     out     PI  kp=1    ki=1
+.tran 10u 200m uic
+
+
+
+.control
+    run
+    plot inp out
+    echo "Note the immediate proportional term, and the growing integral term"
+    
+.endc

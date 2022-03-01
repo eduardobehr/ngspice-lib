@@ -1,0 +1,21 @@
+.title Test PID Controllers (Transfer Function)
+
+.include pid.lib
+
+* Transfer Function analysis
+Vin         tfin    gnd     dc 0 ac 1
+
+xPItf       tfin    tfout   PI  kp=1    ki=10
+
+
+.param pi2 = 6.28
+.param f_start = 1m/pi2
+.param f_end = 10k/pi2
+
+.ac dec 10 {f_start} {f_end}
+
+.control
+    run
+    plot phase(tfout)  vs 6.28*frequency xlog   ; w
+    plot db(tfout)     vs 6.28*frequency xlog   ; w   
+.endc
