@@ -85,4 +85,4 @@ xpwm      signal      freq      pwm          PWM3
 .endc
 ```
 
-![](misc/pwm_example)
+![](misc/pwm_example.png)

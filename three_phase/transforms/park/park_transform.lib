@@ -1,9 +1,13 @@
 ** Amplitude invariant Park Transform (abc -> dq0) and Inverse Park Transform (dq0 -> abc):
 * The Park transform maps a time domain stationary frame three phase abc signal to a 
 * sinchronously rotating reference frame projection on the dq axis.
+*  By default, the q axis leads the d axis (reverse=0), but this can be reversed by setting
+* reverse=1, so that the q axis will lag the d axis.
 * Its inverse does exactly the oposite (converts from rotating to stationary frame)
 *   Note: Power is not conserved between these transforms. Thus, it needs a 3/2 multiplier: 
 *       P = va*ia + vb*ib + vc*ic   =>  P = 3/2 * vd*id + vq*iq
+*
+*               reverse = 0
 *            _______________
 *     a --->|               | ---> d
 *     b --->|Park Transform | ---> q
@@ -19,16 +23,20 @@
 *                  ang
 
 
-.subckt PARK a b c ang   d q o
-.param pi2_3 = 2.0943951023931953
+.subckt PARK a b c ang   d q o      reverse=0
+    .param pi2_3 = 2.0943951023931953
+    .func rev() {reverse == 0 ? -1 : 1}
+
     Bvd     d      gnd     v = (2/3) * (   cos(v(ang))*v(a) + cos(v(ang)-pi2_3)*v(b) + cos(v(ang)+pi2_3)*v(c) )
-    Bvq     q      gnd     v = (2/3) * ( - sin(v(ang))*v(a) - sin(v(ang)-pi2_3)*v(b) - sin(v(ang)+pi2_3)*v(c) )
+    Bvq     q      gnd     v = (2/3) * ( rev() * sin(v(ang))*v(a) + rev() * sin(v(ang)-pi2_3)*v(b) + rev() * sin(v(ang)+pi2_3)*v(c) )
     Bv0     o      gnd     v = (v(a) + v(b) + v(c))/3
 .ends PARK
 
-.subckt IPARK d q o ang     a b c
+.subckt IPARK d q o ang     a b c   reverse=0
     .param pi2_3 = 2.0943951023931953
-    Bva     a       gnd     v = cos(v(ang))       * v(d) - sin(v(ang))       * v(q) + v(o)
-    Bvb     b       gnd     v = cos(v(ang)-pi2_3) * v(d) - sin(v(ang)-pi2_3) * v(q) + v(o)
-    Bvc     c       gnd     v = cos(v(ang)+pi2_3) * v(d) - sin(v(ang)+pi2_3) * v(q) + v(o)
+    .func rev() {reverse == 0 ? -1 : 1}
+
+    Bva     a       gnd     v = cos(v(ang))       * v(d) + rev() * sin(v(ang))       * v(q) + v(o)
+    Bvb     b       gnd     v = cos(v(ang)-pi2_3) * v(d) + rev() * sin(v(ang)-pi2_3) * v(q) + v(o)
+    Bvc     c       gnd     v = cos(v(ang)+pi2_3) * v(d) + rev() * sin(v(ang)+pi2_3) * v(q) + v(o)
 .ends IPARK
