@@ -1,0 +1,19 @@
+** Park Transform (abc -> dq0)
+* This transforms a stationary frame three phase abc signal to a 
+* sinchronous rotating reference frame projection on the dq axis
+*
+*            _______________
+*     a --->|               | ---> d
+*     b --->|Park Transform | ---> q
+*     c --->|_______________| ---> 0
+*                   ↑
+*                  ang
+*
+
+
+.subckt PARK a b c ang   d q o
+.param pi2_3 = 2.0943951023931953
+    Bvd     d      gnd     v = (2/3) * (   cos(v(ang))*v(a) + cos(v(ang)-pi2_3)*v(b) + cos(v(ang)+pi2_3)*v(c) )
+    Bvq     q      gnd     v = (2/3) * ( - sin(v(ang))*v(a) - sin(v(ang)-pi2_3)*v(b) - sin(v(ang)+pi2_3)*v(c) )
+    Bv0     o      gnd     v = (v(a) + v(b) + v(c))/3
+.ends PARK
