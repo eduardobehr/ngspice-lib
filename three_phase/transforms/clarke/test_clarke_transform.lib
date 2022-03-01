@@ -1,0 +1,45 @@
+.title Test Clarke Transform
+.include clarke_transform.lib
+.include ../../voltage_source/voltage_source_3ph.lib
+
+.param freq = 50
+.param pi2 = 6.283185307179586
+
+* Source
+Xabc    va      vb      vc      gnd     VSOURCE3PH  fg=freq rg=1m
+
+* Load
+Ra      va      vla      11
+Rb      vb      vlb      11
+Rc      vc      vlc      11
+
+La      vla     vaAmp   20m
+Lb      vlb     vbAmp   20m
+Lc      vlc     vcAmp   20m
+
+* Current measurement
+Vampa   vaAmp   gnd      dc(0)
+Vampb   vbAmp   gnd      dc(0)
+Vampc   vcAmp   gnd      dc(0)
+
+Bia     ia      gnd     v = i(Vampa)
+Bib     ib      gnd     v = i(Vampb)
+Bic     ic      gnd     v = i(Vampc)
+
+* Clarke Transform
+xTransf     ia ib ic ialpha ibeta CLARKE
+
+* Inverse Clarke Transform
+xITransf ialpha ibeta  iia iib iic ICLARKE
+* ; if ia == iaa and so on, the inverse is working.
+
+
+
+.tran 10u 60m uic
+
+.control
+    run
+    plot ia ib ic
+    plot ialpha ibeta
+    plot norm(va) vs norm(ia)
+.endc
