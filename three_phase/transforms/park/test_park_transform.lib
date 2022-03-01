@@ -27,8 +27,12 @@ Bib     ib      gnd     v = i(Vampb)
 Bic     ic      gnd     v = i(Vampc)
 
 * Park Transform
-Btheta  theta   gnd     v = {freq}*{pi2}*time
-Xtransf ia ib ic theta id iq i0 PARK
+Btheta      theta   gnd     v = {freq}*{pi2}*time
+xTransf     ia ib ic theta id iq i0 PARK
+
+* Inverse Park Transform
+xITransf    id iq i0 theta  iia iib iic IPARK
+; if ia == iaa and so on, the inverse is working.
 
 
 

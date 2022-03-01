@@ -1,7 +1,9 @@
-** Park Transform (abc -> dq0)
-* This transforms a stationary frame three phase abc signal to a 
-* sinchronous rotating reference frame projection on the dq axis
-*
+** Amplitude invariant Park Transform (abc -> dq0) and Inverse Park Transform (dq0 -> abc):
+* The Park transform maps a time domain stationary frame three phase abc signal to a 
+* sinchronously rotating reference frame projection on the dq axis.
+* Its inverse does exactly the oposite (converts from rotating to stationary frame)
+*   Note: Power is not conserved between these transforms. Thus, it needs a 3/2 multiplier: 
+*       P = va*ia + vb*ib + vc*ic   =>  P = 3/2 * vd*id + vq*iq
 *            _______________
 *     a --->|               | ---> d
 *     b --->|Park Transform | ---> q
@@ -9,6 +11,12 @@
 *                   ↑
 *                  ang
 *
+*            _______________
+*     d --->|    Inverse    | ---> a
+*     q --->|Park Transform | ---> b
+*     0 --->|_______________| ---> c
+*                   ↑
+*                  ang
 
 
 .subckt PARK a b c ang   d q o
@@ -17,3 +25,10 @@
     Bvq     q      gnd     v = (2/3) * ( - sin(v(ang))*v(a) - sin(v(ang)-pi2_3)*v(b) - sin(v(ang)+pi2_3)*v(c) )
     Bv0     o      gnd     v = (v(a) + v(b) + v(c))/3
 .ends PARK
+
+.subckt IPARK d q o ang     a b c
+    .param pi2_3 = 2.0943951023931953
+    Bva     a       gnd     v = cos(v(ang))       * v(d) - sin(v(ang))       * v(q) + v(o)
+    Bvb     b       gnd     v = cos(v(ang)-pi2_3) * v(d) - sin(v(ang)-pi2_3) * v(q) + v(o)
+    Bvc     c       gnd     v = cos(v(ang)+pi2_3) * v(d) - sin(v(ang)+pi2_3) * v(q) + v(o)
+.ends IPARK
