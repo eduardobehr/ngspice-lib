@@ -1,0 +1,13 @@
+.title Test Three Phases Voltage sources
+
+.include voltage_source_3ph.lib
+
+Xabc    va      vb      vc      gnd     VSOURCE3PH  fg=50
+
+.tran 10u 20m
+
+.control
+    run
+    plot va vb vc va+vb+vc
+    plot v(va, vb) v(vb, vc) v(vc, va) 538.6678011539208
+.endc
