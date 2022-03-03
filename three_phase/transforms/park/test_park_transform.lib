@@ -32,7 +32,7 @@ xTransf     ia ib ic theta id iq i0 PARK
 
 * Inverse Park Transform
 xITransf    id iq i0 theta  iia iib iic IPARK
-; if ia == iaa and so on, the inverse is working.
+* if ia == iaa and so on, the inverse is working.
 
 
 
