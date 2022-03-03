@@ -1,5 +1,5 @@
-.title Test Park Transform
-.include park_transform.lib
+.title Test Clarke Transform
+.include clarke_transform.lib
 .include ../../voltage_source/voltage_source_3ph.lib
 
 .param freq = 50
@@ -26,21 +26,20 @@ Bia     ia      gnd     v = i(Vampa)
 Bib     ib      gnd     v = i(Vampb)
 Bic     ic      gnd     v = i(Vampc)
 
-* Park Transform
-Btheta      theta   gnd     v = {freq}*{pi2}*time
-xTransf     ia ib ic theta id iq i0 PARK
+* Clarke Transform
+xTransf     ia ib ic ialpha ibeta CLARKE
 
-* Inverse Park Transform
-xITransf    id iq i0 theta  iia iib iic IPARK
-* if ia == iaa and so on, the inverse is working.
-
+* Inverse Clarke Transform
+xITransf ialpha ibeta  iia iib iic ICLARKE
+* ; if ia == iaa and so on, the inverse is working.
 
 
-.tran 10u 30m uic
+
+.tran 10u 60m uic
 
 .control
     run
     plot ia ib ic
-    plot id iq i0
-    plot norm(va) norm(ia)
+    plot ialpha ibeta
+    plot norm(va) vs norm(ia)
 .endc

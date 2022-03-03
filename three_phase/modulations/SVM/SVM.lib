@@ -1,0 +1,54 @@
+** 6 Sectors Space Vector Modulation
+* Inputs: Space vector (V⍺+Vβ) and  modulation index
+*   Note 1: Modulation index must be less than or equal to ~ 0.866 to avoid over modulation
+* Outputs: Modulation signals to be fed into a three phases PWM generator to drive an inverter
+*
+*               ________________
+*     V⍺ ----->|  Space Vector  | ---> SHB1
+*     Vβ ----->|   Modulation   | ---> SHB2
+*     mi ----->|________________| ---> SHB3
+
+* https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwinp9yK5qX2AhV-rJUCHaQSDIAQFnoECFgQAQ&url=https%3A%2F%2Fwww.st.com%2Fresource%2Fen%2Fapplication_note%2Fan2154-space-vector-modulation-using-8bit-st7mc-microcontroller-and-st7mckitbldc-starter-kit-stmicroelectronics.pdf&usg=AOvVaw2_oNRwX-T-G2FrGmWD9Hb8
+
+.subckt SVM6 Valpha Vbeta mi  SHB1 SHB2 SHB3  fs=1k
+    .param c2_r3 = 2/sqrt(3)
+    .param pi_3 = 1.0471975511965976
+    .param pi_2 = 1.5707963267948966
+    .param pi_4 = 0.7853981633974483
+    .param pi = 3.141592653589793
+    .param pi2 = 6.283185307179586
+    .param Ttot = 1/fs
+
+    .func Vab() = {sqrt(v(Valpha)**2 + v(Vbeta)**2)}
+    .func ang() = {atan(-v(Valpha)/v(Vbeta)) >= 0 ? 2*atan(-v(Valpha)/v(Vbeta)) : pi2+2*atan(-v(Valpha)/v(Vbeta))};{4*(atan(-v(Valpha)/v(Vbeta))+ 0)}; {v(Valpha) >= 0 && v(Vbeta) <= 0 ? -atan(v(Valpha)/v(Vbeta)) : 0}
+    .func ta(ang) = {c2_r3 * Ttot * v(mi) * sin(pi_3 - v(angle))}
+    .func tb(ang) = {}
+    .func t0(ang) = {Ttot - ta(ang) - tb(ang)}
+
+    bAngle      angle       gnd         v = ang()
+    bSector     sector      gnd         v = floor(v(angle)/pi_3)
+
+
+    bSHB1       SHB1        gnd         v = {v(sector)}
+    bSHB2       SHB2        gnd         v = v(angle)
+.ends SVM6
+
+
+
+* TEST
+
+.param omega = 314
+.param pi_2 = 1.5707963267948966
+Balpha      A           gnd         v = sin(omega*time)
+Bbeta       B           gnd         v = sin(omega*time - pi_2)
+Vmodind     mi          gnd         dc 0.8
+xSVM        A           B           mi     SHB1 SHB2 SHB3     SVM6
+
+
+.tran 10u 100m uic
+
+.control
+    run
+    plot A B
+    plot SHB1 SHB2
+.endc

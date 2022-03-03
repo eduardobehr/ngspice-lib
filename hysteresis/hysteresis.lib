@@ -1,0 +1,25 @@
+** Hysteresis
+* The hysteresis block has the capability to memorize the current state and only
+*  change it after reaching a certain limit (min & max).
+* It is considered a bistable component because its output is either 1 or -1
+* (except for the initial state, which is 0 by default).
+*              ___________
+*   max ----> |     _____ |
+*   in -----> |    /  /   |----> out
+*   min ----> | __/__/    |
+*             |___________|
+*
+*
+
+
+.subckt Hysteresis in out max min trtf=1u
+    .param vmax = 1
+    .param vmin = -1
+    .param Ch = 10n
+    .param Ip = Ch*(vmax-vmin)/trtf
+
+    bPump gnd cap I=v(in)>v(max) && v(cap) < vmax ? Ip : v(in) < v(min) && v(cap) > vmin ? -Ip : 0
+    Chyst cap gnd {Ch}
+    bOut out gnd v=v(cap) > vmax ? vmax : v(cap) < vmin ? vmin : v(cap); buffer w/ sat
+
+.ends Hysteresis

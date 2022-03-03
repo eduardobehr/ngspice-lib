@@ -1,0 +1,41 @@
+** Amplitude invariant Clarke Transform (abc -> ⍺β) and Inverse Clarke Transform (⍺β -> abc):
+* The Clarke transform maps a time domain stationary frame three phase abc signal to a 
+* stationary orthogonal reference frame projection on the ⍺β axis.
+*
+* Its inverse does exactly the oposite
+*   Note: A balanced network is assumed, that is, va+vb+vc=0
+*
+*            ________________
+*     a --->|                | ---> ⍺
+*     b --->|Clarke Transform| 
+*     c --->|________________| ---> β
+*
+*
+*            ________________
+*     ⍺ --->|    Inverse     | ---> a
+*           |Clarke Transform| ---> b
+*     β --->|________________| ---> c
+*
+
+
+.subckt CLARKE a b c   alpha beta
+    .param cr2_3 = sqrt(2/3)
+    .param c1_2 = 1/2
+    .param cr3_2 = sqrt(3)/2
+
+    Bva     alpha       gnd     v = cr2_3 * ( v(a)     - c1_2 * v(b)     -  c1_2 * v(c) )
+    Bvb     beta        gnd     v = cr2_3 * (           cr3_2 * v(b)     - cr3_2 * v(c) )
+
+.ends CLARKE
+
+
+.subckt ICLARKE alpha beta   a b c
+    .param cr2_3 = sqrt(2/3)
+    .param c1_2 = 1/2
+    .param cr3_2 = sqrt(3)/2
+
+    Bva     a       gnd     v = cr2_3 * ( v(alpha) )
+    Bvb     b       gnd     v = cr2_3 * ( - c1_2 * v(alpha) + cr3_2 * v(beta) )
+    Bvc     c       gnd     v = cr2_3 * ( - c1_2 * v(alpha) - cr3_2 * v(beta) )
+
+.ends ICLARKE

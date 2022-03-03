@@ -1,0 +1,17 @@
+.title Hysteresys test
+
+.include hysteresis.lib
+
+bVac inp gnd v= sin(time*6.283*5)
+xHyst inp outp lmax lmin Hysteresis trtf=10us
+vMax lmax gnd dc 0.5
+vMin lmin gnd dc -0.5
+
+
+
+.tran 1ms 1s uic
+.control
+    run
+    plot inp outp
+    plot v(outp) vs v(inp)
+.endc
