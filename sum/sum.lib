@@ -7,18 +7,32 @@
 *    :              |   :    |
 *    :              |   :    |
 
-.subckt SUM2 input1 input2 output   g1=1 g2=1
-    Bout    output      gnd     v={g1*v(input1)+g2*v(input2)}
+.subckt SUM2 input1 input2 output   g1=1 g2=1 gout=1
+*     Bout    output      gnd     v={g1*v(input1)+g2*v(input2)}
+    a2 [input1 input2] output sum
+    .model sum summer ( in_gain=[g1 g2] out_gain=gout )
+
 .ends SUM2
 
-.subckt SUM3 input1 input2 input3 output    g1=1 g2=1 g3=1
-    Bout    output      gnd     v={g1*v(input1)+g2*v(input2)+g3*v(input3)}
+.subckt SUM3 input1 input2 input3 output    g1=1 g2=1 g3=1 gout=1
+*     Bout    output      gnd     v={g1*v(input1)+g2*v(input2)+g3*v(input3)}
+    a3 [input1 input2 input3] output sum
+    .model sum summer ( in_gain=[g1 g2 g3] out_gain=gout )
 .ends SUM3
 
-.subckt SUM4 input1 input2 input3 input4 output   g1=1 g2=1 g3=1 g4=1
-    Bout    output      gnd     v={g1*v(input1)+g2*v(input2)+g3*v(input3)+g4*v(input4)}
+.subckt SUM4 input1 input2 input3 input4 output   g1=1 g2=1 g3=1 g4=1 gout=1
+*     Bout    output      gnd     v={g1*v(input1)+g2*v(input2)+g3*v(input3)+g4*v(input4)}
+    a4 [input1 input2 input3 input4] output sum
+    .model sum summer ( in_gain=[g1 g2 g3 g4] out_gain=gout )
 .ends SUM4
 
-.subckt SUM5 input1 input2 input3 input4 input5 output   g1=1 g2=1 g3=1 g4=1 g5=1
-    Bout    output      gnd     v={g1*v(input1)+g2*v(input2)+g3*v(input3)+g4*v(input4)+g5*v(input5)}
+.subckt SUM5 input1 input2 input3 input4 input5 output   g1=1 g2=1 g3=1 g4=1 g5=1 gout=1
+*     Bout    output      gnd     v={g1*v(input1)+g2*v(input2)+g3*v(input3)+g4*v(input4)+g5*v(input5)}
+    a5 [input1 input2 input3 input4 input5] output sum
+    .model sum summer ( in_gain=[g1 g2 g3 g4 g5] out_gain=gout )
 .ends SUM5
+
+
+* a3 [1 2 3] 4 sigmult
+* . model sigmult mult ( in_offset =[0.1 0.1 -0.1]
+* + in_gain =[10.0 10.0 10.0] out_gain =5.0 out_offset =0.05)
