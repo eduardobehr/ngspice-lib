@@ -5,7 +5,7 @@
 *        sum{ [denX]*s^X }
 *
 
-.subckt Transfer_Function_Order_1 input output
+.subckt TF1 input output
 +g=1.0
 +num1=0.0 num0=1.0
 +den1=1.0 den0=1.0
@@ -22,7 +22,7 @@
 
 
 
-.subckt Transfer_Function_Order_2 input output
+.subckt TF2 input output
 +g=1.0
 +num2=0.0 num1=0.0 num0=1.0
 +den2=1.0 den1=1.0 den0=1.0
@@ -39,7 +39,7 @@
 
 
 
-.subckt Transfer_Function_Order_3 input output
+.subckt TF3 input output
 +g=1.0
 +num3=0.0 num2=0.0 num1=0.0 num0=1.0
 +den3=1.0 den2=0.0 den1=1.0 den0=-1.0
@@ -54,7 +54,7 @@
     +)
 .ends
 
-.subckt Transfer_Function_Order_4 input output
+.subckt TF4 input output
 +g=1.0
 +num4=0.0 num3=0.0 num2=0.0 num1=0.0 num0=1.0
 +den4=1.0 den3=0.0 den2=0.0 den1=0.0 den0=1.0

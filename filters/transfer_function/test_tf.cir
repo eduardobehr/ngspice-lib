@@ -3,14 +3,14 @@
 .include ./tf.lib
 
 Vin         1   0           pulse(0 1 1 1m 1m 1.5 2)
-xTf1_1      1   n1_1        Transfer_Function_Order_1 num0=1 den0=1
-xTf1_2      1   n1_2        Transfer_Function_Order_1 num0=2 den0=2
-xTf1_5      1   n1_5        Transfer_Function_Order_1 num0=5 den0=5
-xTf1_10     1   n1_10       Transfer_Function_Order_1 num0=10 den0=10
+xTf1_1      1   n1_1        TF1 num0=1 den0=1
+xTf1_2      1   n1_2        TF1 num0=2 den0=2
+xTf1_5      1   n1_5        TF1 num0=5 den0=5
+xTf1_10     1   n1_10       TF1 num0=10 den0=10
 
-xTF2_1      1   n2_1        Transfer_Function_Order_2 g=100  den1=10  den0=100
-xTF2_2      1   n2_2        Transfer_Function_Order_2 g=500  den1=10  den0=500
-xTF2_3      1   n2_3        Transfer_Function_Order_2 g=1000 den1=10 den0=1000
+xTF2_1      1   n2_1        TF2 g=100  den1=10  den0=100
+xTF2_2      1   n2_2        TF2 g=500  den1=10  den0=500
+xTF2_3      1   n2_3        TF2 g=1000 den1=10 den0=1000
 
 .tran 1m 10s uic
 
