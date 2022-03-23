@@ -5,6 +5,6 @@
 *   input >----->|╳ gain >-----> output = {gain ╳ input}
 *                |______/
 
-.subckt GAIN input output       gain=1
-Bout        output      gnd     v=gain*v(input)
+.subckt GAIN input output       g=1
+Bout        output      gnd     v=g*v(input)
 .ends GAIN
