@@ -1,0 +1,73 @@
+**
+*
+*        sum{ [numX]*s^X }
+*   g * -------------------
+*        sum{ [denX]*s^X }
+*
+
+.subckt Transfer_Function_Order_1 input output
++g=1.0
++num1=0.0 num0=1.0
++den1=1.0 den0=1.0
++          ic0=0.0
+
+    aTF     input       output      TF
+
+    .model TF s_xfer(gain=g
+        + num_coeff=[num1 num0]
+        + den_coeff=[den1 den0]
+        + int_ic=[ic0]
+    +)
+.ends
+
+
+
+.subckt Transfer_Function_Order_2 input output
++g=1.0
++num2=0.0 num1=0.0 num0=1.0
++den2=1.0 den1=1.0 den0=1.0
++          ic1=0.0  ic0=0.0
+
+    aTF     input       output      TF
+
+    .model TF s_xfer(gain=g
+        + num_coeff=[num2 num1 num0]
+        + den_coeff=[den2 den1 den0]
+        + int_ic=[ic1 ic0]
+    +)
+.ends
+
+
+
+.subckt Transfer_Function_Order_3 input output
++g=1.0
++num3=0.0 num2=0.0 num1=0.0 num0=1.0
++den3=1.0 den2=0.0 den1=1.0 den0=-1.0
++          ic2=0.0  ic1=0.0  ic0=0.0
+
+    aTF     input       output      TF
+
+    .model TF s_xfer(gain=g
+        + num_coeff=[num3 num2 num1 num0]
+        + den_coeff=[den3 den2 den1 den0]
+        + int_ic=[ic1 ic0]
+    +)
+.ends
+
+.subckt Transfer_Function_Order_4 input output
++g=1.0
++num4=0.0 num3=0.0 num2=0.0 num1=0.0 num0=1.0
++den4=1.0 den3=0.0 den2=0.0 den1=0.0 den0=1.0
++          ic3=0.0  ic2=0.0  ic1=0.0  ic0=0.0
+
+    aTF     input       output      TF
+
+    .model TF s_xfer(gain=g
+        + num_coeff=[num4 num3 num2 num1 num0]
+        + den_coeff=[den4 den3 den2 den1 den0]
+        + int_ic=[ic1 ic0]
+    +)
+.ends
+
+
+
