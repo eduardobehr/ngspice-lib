@@ -5,12 +5,13 @@
 * Transfer Function analysis
 Vin         tfin    gnd     dc 0 ac 1
 
-xPItf       tfin    tfout   PI  kp=1    ki=10
+xPItf       tfin    tfout   PI_CONTROLLER  kp=1    ki=10
 
 
 .param pi2 = 6.28
 .param f_start = 1m/pi2
 .param f_end = 10k/pi2
+* TODO: ver se esse problema do omega vs freq não tem a ver com a função de transferência do PI (s=jw)
 
 .ac dec 10 {f_start} {f_end}
 

@@ -4,7 +4,7 @@
 
 * Transient analysis
 Bsine       inp     gnd     v=1;sin(6.28*50*time)+0.1
-xPItrans    inp     out     PI  kp=1    ki=1
+xPItrans    inp     out     PI_CONTROLLER  kp=1    ki=1
 .tran 10u 200m uic
 
 
