@@ -1,5 +1,5 @@
 .title Clampler Test
-.include clamper_fixed.lib
+.include clamper.lib
 
 
 BtestIn     vin     gnd     v=311*sin(6.28*60*time)
