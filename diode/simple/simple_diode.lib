@@ -1,0 +1,22 @@
+** Simple Diode
+*
+*               |\  |
+*               | \ |         ___________
+*               |  \|        |     rs    |
+*   1 ------●---|   |---●----|-----------|-----2
+*           |   |  /|   |    |___________|
+*           |   | / |   |
+*           |   |/  |   |
+*           |           |
+*           |           |
+*           |____| |____|
+*                | |
+*                C
+*
+
+.subckt SIMPLE_DIODE 1 2 bv=800 is=1e-13 n=1.05 rs=100m C=100pF
+    D1 1 2 DMOD
+    .model DMOD D (bv={bv} is={is}
+    + n={n} rs={rs} CJo={C})
+.ends SIMPLE_DIODE
+

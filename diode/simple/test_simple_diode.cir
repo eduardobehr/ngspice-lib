@@ -1,0 +1,13 @@
+.title Test Simple Diode
+.include simple_diode.lib
+
+bV1  1 0 v=10*sin(6.28*60*time)
+R1  1 2 10
+xD1 2 0 SIMPLE_DIODE
+
+.tran 1us 30ms
+.control
+    run
+    plot -1*bv1#branch vs v(2)
+    plot v(2) v(1)
+.endc
