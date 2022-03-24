@@ -1,0 +1,52 @@
+**
+*   N = n1/n2
+*   Lm=k*sqrt(L1*L2) => {L1 = Lm*N/k    = Lm + Lσ1
+*                       {L2 = Lm/(N*k)  = Lm + Lσ2
+*   Lσ1 = Lm*(N/k -1)
+*   Lσ2 = Lm*(k/N -1)
+*
+*
+*
+*   TRANSFORMER_1X1:
+*
+*                 k
+*                 ⌒
+*      1--------|    |--------4
+*             ● | || | ●
+*               8 || 8
+*            L1 8 || 8 L2
+*            n1 8 || 8 n2
+*               | || |
+*      2--------|    |--------3
+*
+*
+*
+.subckt TRANSFORMER_1X1 1 2 3 4 Lm=100uH N=10 k=1
+  L1 1 2 {Lm*N}
+  L2 4 3 {Lm/N}
+  K1 L1 L2 {k}
+.ends TRANSFORMER
+
+
+
+
+*
+*   TRANSFORMER_1X1_SWAPPED:
+*
+*                 k
+*                 ⌒
+*      1--------|    |--------4
+*             ● | || |
+*               8 || 8
+*            L1 8 || 8 L2
+*            n1 8 || 8 n2
+*               | || | ●
+*      2--------|    |--------3
+*
+*
+*
+.subckt TRANSFORMER_1X1_SWAPPED 1 2 3 4 Lm=100uH N=10 k=1
+  L1 1 2 {Lm*N}
+  L2 3 4 {Lm/N}
+  K1 L1 L2 {k}
+.ends TRANSFORMER_1X1_SWAPPED
