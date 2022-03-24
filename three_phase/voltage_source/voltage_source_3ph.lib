@@ -1,25 +1,31 @@
 ** Balanced Three Phases Voltage Source
 *
 *
-*                               rg
-*                                ↓
-*                   |----(~)----⊏⊐---- Ua
+*                               rg      lg
+*                                ↓      ↓
+*                   |----(~)----⊏⊐----cccc---- Ua
 *                   |
-*   Uneutral -------●----(~)----⊏⊐---- Ub
+*   Uneutral -------●----(~)----⊏⊐----cccc---- Ub
 *                   |
-*                   |----(~)----⊏⊐---- Uc
+*                   |----(~)----⊏⊐----cccc---- Uc
 *
 *
 
-.subckt VSOURCE3PH Ua Ub Uc Uneutral   amplitude=311 fg=60 rg=0
+.subckt VSOURCE3PH Ua Ub Uc Uneutral   amp=311 fg=60 rg=1m lg=10uH
 .param pi2 = 6.283185307179586
 * sources to resistors
-    BVa      vra     Uneutral        v = amplitude * sin(pi2 * fg * time)
-    BVb      vrb     Uneutral        v = amplitude * sin(pi2 * fg * time - 2.0943951023931953)
-    BVc      vrc     Uneutral        v = amplitude * sin(pi2 * fg * time + 2.0943951023931953)
+    BVa      vra     Uneutral        v = amp * sin(pi2 * fg * time)
+    BVb      vrb     Uneutral        v = amp * sin(pi2 * fg * time - 2.0943951023931953)
+    BVc      vrc     Uneutral        v = amp * sin(pi2 * fg * time + 2.0943951023931953)
 
-* resistors to output
-    Ra      vra     Ua
-    Rb      vrb     Ub
-    Rc      vrc     Uc
+* resistors to inductances
+    Ra      vra     vla     {rg}
+    Rb      vrb     vlb     {rg}
+    Rc      vrc     vlc     {rg}
+
+* inductances to output
+    La      vla     Ua      {lg}
+    Lb      vlb     Ub      {lg}
+    Lc      vlc     Uc      {lg}
+
 .ends VSOURCE3PH
