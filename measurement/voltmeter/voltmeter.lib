@@ -1,0 +1,13 @@
+** Voltmeter
+*   Outputs the voltage difference between nodes 1 and 2
+*
+*
+*   1 ----(V)---- 2
+*          ↓
+*        v(1,2)
+*
+*
+
+.subckt VOLTMETER 1 2 out
+  bOut out gnd v={v(1,2)}
+.ends VOLTMETER

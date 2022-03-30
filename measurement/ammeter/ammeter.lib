@@ -1,0 +1,14 @@
+** Ammeter
+*   Outputs the current flowing from node 1 to 2
+*
+*
+*   1 ----(A)---- 2
+*          ↓
+*          i
+*
+*
+
+.subckt AMMETER 1 2 out
+  vIMeas 1 2 0V
+  bOut out gnd v={i(vIMeas)}
+.ends AMMETER
