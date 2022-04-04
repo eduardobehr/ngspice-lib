@@ -1,0 +1,11 @@
+** Voltage-Controlled Voltage Source
+
+
+* .subckt VCVS    sp  sm  cp  cm  g=1
+*               |   |   |   |
+*               |   |   +   -  <-- controlleR voltage
+*               |   |
+*               +   -  <---------- controlleD voltage source
+
+*     Esour   sp  sm  vMeas   g
+* .ends VCVS

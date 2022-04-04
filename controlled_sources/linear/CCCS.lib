@@ -1,6 +1,12 @@
 ** Current-Controlled Current Source
-
+* Positive controlleD current flows from sp, through the source, to sm.
+* Positive controlleR current flows from cp, through the source, to cm.
 .subckt CCCS    sp  sm  cp  cm  g=1
+*               |   |   |   |
+*               |   |   |->-|  <-- controlleR current
+*               |   |
+*               |->-|   <--------- controlleD current source
+*
     vMeas   cp  cm  0V; Voltage source to measure the input current
     Fsour   sp  sm  vMeas   g
 .ends CCCS
