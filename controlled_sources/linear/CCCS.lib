@@ -1,0 +1,6 @@
+** Current-Controlled Current Source
+
+.subckt CCCS    sp  sm  cp  cm  g=1
+    vMeas   cp  cm  0V; Voltage source to measure the input current
+    Fsour   sp  sm  vMeas   g
+.ends CCCS

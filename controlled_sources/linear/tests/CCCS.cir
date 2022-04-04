@@ -1,0 +1,17 @@
+** Test
+.title Testing CCCS
+.include ../CCCS.lib
+
+Vs      vcc gnd 10V
+xcccs   sp  0  vcc amp CCCS g=2
+R1      amp gnd 100ohms
+R2      sp  imeas  1ohm
+Lmeas   imeas 0     0nH
+
+.tran 10ms 100ms
+
+.control
+    run
+    plot Vs#branch
+    plot lmeas#branch
+.endc
