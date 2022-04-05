@@ -1,0 +1,16 @@
+** Analog to Digital Bridge
+* The adc_bridge is one of two node bridge devices designed to allow for the
+* ready transfer of analog information to digital values and back again. The second
+* device is the dac_bridge (which takes a digital value and maps it to an analog one).
+* The adc_bridge takes as input an analog value from an analog node. This value
+* by definition may be in the form of a voltage, or a current. If the input value is
+* less than or equal to in_low, then a digital output value of ‘0’ is generated. If the
+* input is greater than or equal to in_high, a digital output value of ‘1’ is generated.
+* If neither of these is true, then a digital ‘UNKNOWN’ value is output. Note that
+* unlike the case of the dac_bridge, no ramping time or delay is associated with the
+* adc_bridge. Rather, the continuous ramping of the input value provides for any
+* associated delays in the digitized signal.
+.subckt ADB 1 2 th_low=0.3 th_high=2.7
+    abridge2 [1] [2] adc_buff
+    .model adc_buff adc_bridge ( in_low=th_low in_high=th_high )
+.ends ADB

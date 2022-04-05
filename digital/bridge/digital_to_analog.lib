@@ -1,0 +1,24 @@
+** to Digital to Analog Bridge
+*  The dac_bridge is the first of two node bridge devices designed to allow for
+* the ready transfer of digital information to analog values and back again. The second
+* device is the adc_bridge (which takes an analog value and maps it to a digital
+* one).The dac_bridge takes as input a digital value from a digital node. This value
+* by definition may take on only one of the values ‘0’, ‘1’ or ‘U’. The dac_bridge then
+* outputs the value out_low, out_high or out_undef, or ramps linearly toward one
+* of these ‘final’ values from its current analog output level.
+* The speed at which this
+* ramping occurs depends on the values of t_rise and t_fall. These parameters are
+* interpreted by the model such that the rise or fall slope generated is always constant.
+* Note that the dac_bridge includes test code in its cfunc.mod file for determining
+* the presence of the out_undef parameter. If this parameter is not specified by you,
+* and if out_high and out_low values are specified, then out_undef is assigned the
+* value of the arithmetic mean of out_high and out_low. This simplifies coding of
+* output buffers, where typically a logic family will include an out_low and out_high
+* voltage, but not an out_undef value. This model also posts an input load value (in
+* farads) based on the parameter input load.
+
+.subckt DAB 1 2 low=0.0 high=3.3 undef=0.2 tr=50e-9 tf=20e-9 cin=5.0e-12
+    abridge2 [1] [2] dac1
+    .model dac1 dac_bridge ( out_low=low out_high=high out_undef=undef
++       input_load=cin t_rise=tr t_fall=tf )
+.ends DAB

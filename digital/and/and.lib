@@ -1,0 +1,21 @@
+** Digital implementation of logical AND
+* @note: last node is always the output
+.subckt AND2 1 2 3 tr=0.5e-9 tf=0.3e-9 cin=1e-12
+    A2 [1 2] 3 and2_m
+    .model and2_m d_and ( rise_delay=tr fall_delay=tf input_load=cin )
+.ends AND2
+
+* .subckt AND3 1 2 3 4 tr=0.5e-9 tf=0.3e-9 cin=0.5e-12
+*     A2 [1 2 3] 4 and3_m
+*     .model and3_m d_and(rise_delay=tr fall_delay=tf input_load=cin)
+* .ends AND3
+*
+* .subckt AND4 1 2 3 4 5 tr=0.5e-9 tf=0.3e-9 cin=0.5e-12
+*     A2 [1 2 3 4] 5 and4_m
+*     .model and4_m d_and(rise_delay=tr fall_delay=tf input_load=cin)
+* .ends AND4
+*
+* .subckt AND5 1 2 3 4 5 6 tr=0.5e-9 tf=0.3e-9 cin=0.5e-12
+*     A2 [1 2 3 4 5] 6 and5_m
+*     .model and5_m d_and(rise_delay=tr fall_delay=tf input_load=cin)
+* .ends AND5
