@@ -1,0 +1,26 @@
+** Division: output = num/den
+*
+*                    ________
+*                   |        |
+*     num >-------->|        |
+*                   |   ╱    |-------> output
+*     den >-------->|        |
+*                   |________|
+*
+* This function is a two-quadrant divider. It takes two inputs; num (nu-
+* merator) and den (denominator). Divide offsets its inputs, multiplies them by their
+* respective gains, divides the results, multiplies the quotient by the output gain, and
+* offsets the result. The denominator is limited to a value above zero via a user spec-
+* ified lower limit. This limit is approached through a quadratic smoothing function,
+* the domain of which may be specified as a fraction of the lower limit value (default),
+* or as an absolute value. This model will operate in DC, AC and Transient analysis
+* modes. However, in ac analysis it is important to remember that results are invalid
+* unless only one input of the divider is connected to a node that is connected to an
+* ac signal (this is exemplified by the use of the divider to perform a potentiometer
+* function: one input is dc, the other carries the ac signal).
+
+.subckt DIV num den output
+*     Bout    output      gnd     v={ abs(input2) > GMIN ? v(input1) / v(input2) :  }
+    a4 num den output divider
+    .model divider divide( den_lower_limit=1e-9 den_domain=1e-10 fraction=FALSE )
+.ends DIV

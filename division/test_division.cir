@@ -1,0 +1,27 @@
+.title Test division
+.include ./division.lib
+
+** Input signals
+V1      sig1    gnd     -1
+V2      sig2    gnd     2
+V3      sig3    gnd     3
+
+** Output signals
+* divides signals 1 by 2
+
+X_12    sig1   sig2   sig12      DIV
+* divides signals 2 by 3
+X_23    sig2   sig3   sig23      DIV
+
+bsine   sine    gnd     v = {10 * sin (60*6.28*time)}
+xdiv1    sine    sig3  outsine1   DIV
+xdiv2    sig3    sine  outsine2   DIV
+
+.tran 100us 100ms
+
+.control
+    run
+    plot sig12 sig23
+    plot sine outsine1
+    plot outsine2
+.endc
