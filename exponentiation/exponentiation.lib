@@ -1,0 +1,26 @@
+** Exponentiation: multiplies the input signals and outputs it
+*
+*                    ________
+*                   |        |
+*       x(2) >----->|    x   |
+*                   |   y    |-------> output(3)
+*       y(1) >----->|        |
+*                   |________|
+*
+*                    ________
+*                   |        |
+*                   |    x   |
+*       y(1) >----->|   y    |-------> output(3)
+*                   |        |
+*                   |________|
+*                       x=2
+*
+
+
+.subckt YEXPX_VAR y x output
+    Bout    output      gnd     v={v(y)**v(x)}
+.ends YEXPX_VAR
+
+.subckt YEXPX_FIX y output x=2
+    Bout    output      gnd     v={v(y)**x}
+.ends YEXPX_FIX
