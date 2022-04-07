@@ -1,0 +1,10 @@
+** Unipolar Voltage Source
+* Voltage source tied to ground
+.subckt VUNI output voltage=1V
+    Vs      output      gnd     {voltage}
+.ends VUNI
+
+* Same as VUNI, but meant for signal output
+.subckt CTE output c=1
+    Vs      output      gnd     {c}
+.ends CTE
