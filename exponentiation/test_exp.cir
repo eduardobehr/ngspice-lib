@@ -2,18 +2,18 @@
 .include exponentiation.lib
 
 ** Input signals
-V1      sig1    gnd     -2
+bV1      sig1    gnd     v={1*sin(377*time)}
 V2      sig2    gnd     3
 
 ** Output signals
 *
-X_12   sig1   sig2   out1      YEXPX_VAR
+X_12   sig1   sig2   outvar      YEXPX_VAR
 *
-X_23   sig1   out2      YEXPX_FIX x=2
+X_23   sig1   outfix      YEXPX_FIX x=2
 
-.tran
+.tran 1us 10m uic
 
 .control
     run
-    plot sig1 out1 out2
+    plot sig1 outvar outfix
 .endc

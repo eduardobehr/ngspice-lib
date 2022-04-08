@@ -18,9 +18,11 @@
 
 
 .subckt YEXPX_VAR y x output
-    Bout    output      gnd     v={v(y)**v(x)}
+*     Bout    output      gnd     v={v(y)^v(x)}
+    Bout    output      gnd     v={exp(v(x)*ln(abs(v(y))))}
 .ends YEXPX_VAR
 
 .subckt YEXPX_FIX y output x=2
-    Bout    output      gnd     v={v(y)**x}
+*     Bout    output      gnd     v={v(y)^x}
+    Bout    output      gnd     v={exp(x*ln(abs(v(y))))}
 .ends YEXPX_FIX
