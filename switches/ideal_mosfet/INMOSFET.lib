@@ -1,0 +1,14 @@
+** Models for ideal switch and N-channel MOSFET
+* Note: the difference is that the triggering voltage is
+* referenced from gate to source in the MOSFET and
+* from gate to gnd(0, absolute voltage) for the switch.
+
+.subckt INMOSFET drain gate source rdson=20m vgsth=0.5
+  S1 drain source gate source switch
+  .model switch sw ron=rdson vt=vgsth
+.ends INMOSFET
+
+.subckt ISWITCH drain gate source reson=20m vgth=0.5
+  S1 drain source gate 0 switch
+  .model switch sw ron=reson vt=vgth
+.ends ISWITCH

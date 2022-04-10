@@ -1,0 +1,13 @@
+.title Test INMOSFET
+.include INMOSFET.lib
+
+Vcc 1 0 12V
+R1  1 d 10
+x1  d g 0 INMOSFET
+Vt  g 0 PULSE(0 1 50ms 2ns 2ns 50ms 100ms)
+.tran 1ms 100ms
+
+.control
+  run
+  plot v(g) v(d)
+.endc
