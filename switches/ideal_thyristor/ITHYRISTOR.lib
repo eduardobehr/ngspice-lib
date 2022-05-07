@@ -13,6 +13,9 @@
 .ends ITHYRISTORDRIVER a g c
 
 
+** The ITRIACDRIVER aggregates two ITHYRISTORDRIVER in anti-parallel
+.subckt ITRIACDRIVER c1 g c2 _roff=1Meg _ron=1m _ihold=10mA _vt=0.5V
+	xt1	c1	g	c2	ITHYRISTORDRIVER roff=_roff ron=_ron ihold=_ihold vt=_vt
+	xt2	c2	g	c1	ITHYRISTORDRIVER roff=_roff ron=_ron ihold=_ihold vt=_vt
 
-
-
+.ends ITRIACDRIVER
