@@ -1,0 +1,18 @@
+** Ideal Thyristors
+
+** Ideal Thyristor (with driver)
+* Turns on when absolute voltage at gate is greater than 'vt' threshold voltage
+* Conducts with resistance of 'ron'
+* Blocks with resistance of 'roff'
+* Conducts until current is less than 'ihold'
+* Doesn't trigger on negative voltage (diode alike)
+*
+.subckt ITHYRISTORDRIVER a g c roff=1Meg ron=1m ihold=10mA vt=0.5V
+	vImeas	a	mid	0
+	Bmc	mid	c	i={ v(g) >= vt && v(a,c) > 0 ? v(a,c)/ron : i(vImeas) >= ihold ? v(a,c)/ron : v(a,c)/roff }
+.ends ITHYRISTORDRIVER a g c
+
+
+
+
+

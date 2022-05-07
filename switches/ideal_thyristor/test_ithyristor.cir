@@ -1,0 +1,17 @@
+.title Test Ideal Thyristor Driver
+.include ITHYRISTOR.lib
+
+bAC	vcc	gnd	v=311*sin(6.28*50*time)
+Rload	vcc	a	10
+xThy	a	g	gnd	ITHYRISTORDRIVER
+
+vtrig	g	gnd	PULSE ( 0 1V 3ms 1ns 1ns 2ms 10ms 0 )
+
+
+.tran 10us 100ms uic
+.option interp
+
+.control
+	run
+	plot g bac#branch
+.endc
