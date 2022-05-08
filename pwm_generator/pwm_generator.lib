@@ -11,3 +11,17 @@ BsawtoothM      sawtoothN       gnd     v=-0.5+(time*v(freq)-floor(0.5+time*v(fr
 Bpwm            output          gnd     v=v(signal)>=v(sawtoothP) && v(signal)>=0 ? 1 : v(signal)<=v(sawtoothN) && v(signal)<=0 ? -1 : 0
 
 .ends PWM3
+
+
+
+
+
+
+** Fixedfrequency
+.subckt PWM3FIXED signal output freq=10kHz
+
+BsawtoothP      sawtoothP       gnd     v=0.5+(time*freq-floor(0.5+time*freq))
+BsawtoothM      sawtoothN       gnd     v=-0.5+(time*freq-floor(0.5+time*freq))
+Bpwm            output          gnd     v=v(signal)>=v(sawtoothP) && v(signal)>=0 ? 1 : v(signal)<=v(sawtoothN) && v(signal)<=0 ? -1 : 0
+
+.ends PWM3FIXED
