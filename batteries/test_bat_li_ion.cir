@@ -1,0 +1,13 @@
+.title Testing Lithium Ion Battery
+.include "bat_li_ion.lib"
+
+xBat    pos     gnd     LI_ION_BAT qi=3600 qmax=3600
+Rload   pos     gnd     1
+
+.tran 1s 10000s uic
+
+.control
+    run
+    plot pos
+
+.endc

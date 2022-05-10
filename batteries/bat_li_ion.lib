@@ -1,0 +1,25 @@
+** Lithium Ion Battery
+* Charge curve: Voc = a_1*S^n +a_2*S^(n-1) + ... + a_{n+1}
+* With n=4, the coefficients a1 through a5 are:
+* @ 25°C:   -1.83   4.48    -3.03   1.18    3.43
+* @ 45°C:   -5.12   12.31   -9.41   3.23    3.2
+.subckt LI_ION_BAT pos neg ns=1 np=1 rs=1m qi=1800As Qmax=3600As
+        .param n=ns/np
+        .param a1=-5.12 a2=12.31 a3=-9.41 a4=3.23 a5=3.2
+        .func SOC() {v(charge)/Qmax };  > 1 ? Qmax : v(charge)/Qmax < 0 ? 0 : v(charge)/Qmax}
+        .param SOCi = qi/Qmax
+
+        Cchg    charge  gnd     1 ic={ qi > Qmax ? Qmax : qi < 0 ? 0 : qi }
+        bIchg   gnd     charge  I={np*i(bVcell)}
+        .ic v(charge) = qi
+
+* TODO: apply SOC limits: min 0%, max 100%
+* TODO: fix negative charge
+
+        bTEST   testT   gnd     V={SOC()}
+        bVbuff  buff    gnd     V={ns*(a1*SOC()**4 + a2*SOC()**3 +a3*SOC()**2 + a4*SOC() + a5) }
+        .ic v(buff) = {ns*(a1*SOCi**4 + a2*SOCi**3 +a3*SOCi**2 + a4*SOCi + a5)}
+        bVcell  voc     neg     V={v(buff) > 4.4 ? 4.4 : v(buff) < 0 ? 0 : v(buff)}
+        Rscell  pos     voc     {n*rs}
+*         Rpcell  pos     neg     {n*rp}
+.ends LI_ION_BAT
