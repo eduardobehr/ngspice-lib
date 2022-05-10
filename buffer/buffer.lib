@@ -1,0 +1,5 @@
+** Voltage buffer
+
+.subckt BUFFER input output
+    bOut    output      gnd     v={v(input)}
+.ends BUFFER
