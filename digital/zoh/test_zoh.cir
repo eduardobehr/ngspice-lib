@@ -1,0 +1,24 @@
+.title Testing Zero Order Hold sampler
+.include zoh.lib
+
+* Test settings
+.param freqSig = 60Hz
+.param freqSampling = 3kHz
+
+*****************************************************************
+* Input signal
+.param Tstep = {1/freqSampling/1000}
+.param StepsPerPeriod = {1/(Tstep*freqSig)}
+bSin 1 0 v=sin(6.28*time*freqSig)
+
+* ZOH to output
+xZOH 1 2 ZOH Ts={1/freqSampling}
+
+.param endT={10/freqSig}
+* .param startT={endT-StepsPerPeriod*Tstep}; take last period
+.tran {Tstep} {endT} ;{startT}
+
+.control
+    run
+    plot v(1) v(2)
+.endc

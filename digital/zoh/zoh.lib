@@ -1,0 +1,16 @@
+
+.subckt ZOH input output Ts=1ms duty=0.01
+
+    * Input stage
+    .param R = 10m
+    .model SMOD sw vt=0.5 ron={R} roff=100Meg
+    S1 input vcap pwm gnd SMOD
+    C1 vcap gnd {Ts/(1000*R)}; making auto-adjusting bandwidth: RC << Ts
+
+    * PWM sampler generator stage
+    Bsawtooth  sawtooth  gnd  v=0.5+(time*{1/Ts}-floor(0.5+time*{1/Ts}))
+    Bpwm       pwm       gnd  v={duty}>=v(sawtooth) ? 1 : 0
+
+    * Output stage
+    Buffer output gnd v={v(vcap)}
+.ends ZOH
