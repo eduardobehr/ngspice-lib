@@ -1,0 +1,19 @@
+.title Testing SOGI circuit
+
+.include SOGI.lib
+
+** Grid voltage
+bUg     ug      gnd     v={100*sin(314*time) - 10*sin(3*314*time-1) - 10*sin(5*314*time-1)}
+
+vFreq   w       gnd     314
+
+xSogi   ug      w       ua      ub      SOGI    k=0.1
+
+.tran 10u 1000m
+
+.control
+    run
+    plot ug ua ub
+    fft ug ua ub
+    plot mag(ug) mag(ua) mag(ub)
+.endc

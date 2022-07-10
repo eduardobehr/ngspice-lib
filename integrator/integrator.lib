@@ -1,4 +1,3 @@
-.title Integrator 
 ** This component has two nodes (input and output) and attatches
 * itself to global gnd (0)
 * NOTE: this component requires "uic" enabled on transient analysis

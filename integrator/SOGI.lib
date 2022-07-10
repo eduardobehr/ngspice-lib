@@ -1,0 +1,31 @@
+** Second Order Generalized Integrator
+*   This component performs an alpha-beta decomposition of a single-phase signal
+*   Given an input ug (e.g. grid voltage with noise and harmonics)
+*   it generates a clean output both in phase, "ua", and in quadrature,
+*   i.e. 90 degrees out of phase "ub" (lagging)
+*                 _______
+*      ug >------|       |-----> ua
+*                | SOGI  |
+*       w >------|_______|-----> ub
+*                  k=0.1
+*
+*   note: the input signal omega (w) might be constant or time-varying.
+*   - If fixed, it behaves as a linear notch filter
+*   - If varying, it may receive the frequency feedback from a PLL
+*
+*   note: k controls the bandwidth. For smaller k, the notch band becomes narrower
+*
+.include integrator.lib
+
+.subckt SOGI ug w ua ub     k=0.1
+* Source: J. Xu, H. Qian, Y. Hu, S. Bian and S. Xie, "Overview of SOGI-Based Single-Phase Phase-Locked Loops for Grid Synchronization Under Complex Grid Conditions," in IEEE Access, vol. 9, pp. 39275-39291, 2021, doi: 10.1109/ACCESS.2021.3063774.
+
+* TODO: maybe implement from scratch instead of using existing integrator (might be faster)
+    bToIntA     ToIntA      gnd     v={v(w)*(k*(v(ug)-v(ua)) - v(ub))}
+    xIntA       ToIntA      ua      INTEGRATOR
+
+    bToIntB     ToIntB      gnd     v={v(w)*v(ua)}
+    xIntB       ToIntB      ub      INTEGRATOR
+.ends SOGI
+
+
