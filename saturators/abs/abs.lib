@@ -1,0 +1,5 @@
+* Implements ABS component (outputs the absolute value of signal)
+
+.subckt ABS in out
+	Bbuff out gnd V=abs(v(in, gnd))
+.ends ABS

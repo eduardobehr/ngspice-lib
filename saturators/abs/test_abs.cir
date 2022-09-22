@@ -1,0 +1,8 @@
+.title "Tests ABS component"
+
+.include "abs.lib"
+
+Bsine	1	gnd	v=311*sin(2*pi*60*time)
+Xabs	1	2	ABS
+
+.tran 100us 40ms
