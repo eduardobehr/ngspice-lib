@@ -15,3 +15,10 @@
                                    +v(input,gnd) < lmin ? lmin : 
                                    +v(input,gnd)
 .ends ClamperFixed
+
+
+.subckt DynamicClamper input output lmin lmax
+    Bout    output      gnd     v = v(input,gnd) > v(lmax) ? v(lmax) :
+                                   +v(input,gnd) < v(lmin) ? v(lmin) :
+                                   +v(input,gnd)
+.ends DynamicClamper
