@@ -1,0 +1,10 @@
+.subckt DIODE_BRIDGE 1 2 3 4 5 bv=800 is=1e-13 n=1.05 rs=100m C=100pF
+    D1 2 1 DMOD
+	D2 3 1 DMOD
+	D3 4 1 DMOD
+	D4 5 2 DMOD
+	D5 5 3 DMOD
+	D6 5 4 DMOD
+    .model DMOD D (bv={bv} is={is}
+    + n={n} rs={rs} CJo={C})
+.ends DIODE_BRIDGE
