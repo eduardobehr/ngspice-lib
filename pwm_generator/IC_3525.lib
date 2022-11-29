@@ -21,8 +21,8 @@
 	bRt 12 RtVal v={-Vref/i(vRtMeasI)}
 
 	* Triangular wave oscillator
-	* f = 1/(Ct*0.7*Rt)
-	bFreq freq 12 v={(1/(v(CtVal)*0.7*v(RtVal))) < 1 ? 1 : 1/(v(CtVal)*0.7*v(RtVal))}
+	* f = 1/(2*Ct*0.7*Rt)
+	bFreq freq 12 v={(1/(2*v(CtVal)*0.7*v(RtVal))) < 1 ? 1 : 1/(2*v(CtVal)*0.7*v(RtVal))}
 	aTriOsc freq carrier trigen
 	.model trigen triangle(cntl_array = [10 500e3]
 		+freq_array=[10 500e3] out_low = 0
