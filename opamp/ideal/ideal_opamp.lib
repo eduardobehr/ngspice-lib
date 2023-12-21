@@ -12,6 +12,6 @@
 *           |╱  Vm
 
 .subckt OPAMP INon IInv out Vp Vm g=100k
-  bGain gain gnd v={g*v(INon, IInv)}
-  bOut out gnd v={v(gain)> v(Vp) ? v(Vp) : v(gain) < v(Vm) ? v(Vm) : v(gain)}
+  bGain gain Vm v={g*v(INon, IInv)}
+  bOut out Vm v={v(gain,Vm)> v(Vp,Vm) ? v(Vp,Vm) : v(gain,Vm) < v(Vm,Vm) ? v(Vm,Vm) : v(gain,Vm)}
 .ends OPAMP
